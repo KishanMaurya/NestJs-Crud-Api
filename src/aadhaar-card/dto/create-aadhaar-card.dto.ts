@@ -1,3 +1,4 @@
+import { Transform } from 'class-transformer';
 import {
     validate,
     validateOrReject,
@@ -9,7 +10,9 @@ import {
     IsDate,
     Min,
     Max,
+    MinDate,
     IsString,
+    IsDateString,
     IsNumber,
     IsBoolean,
     IsNotEmpty,
@@ -30,14 +33,16 @@ export class CreateAadhaarCardDto {
     @IsNotEmpty({ message: 'Mobile number is required.' })
     "mobileNo": number;
 
-    @IsString()
-    "city": string;
+    @IsNotEmpty()
+    @IsDateString()
+    dob: Date;
 
     @IsString()
     "country": string;
 
     @IsString()
-    "professsionType": string;
+    @IsNotEmpty({ message : 'Gender is required.' })
+    "gender": string;
 
     @IsString()
     @IsNotEmpty({ message: 'Address is required'})

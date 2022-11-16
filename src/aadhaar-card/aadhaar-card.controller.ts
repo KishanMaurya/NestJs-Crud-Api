@@ -11,51 +11,32 @@ export class AadhaarCardController {
 
   @Post()
   async create(@Req() req:Request, @Res() res: Response, @Body() createAadhaarCardDto: CreateAadhaarCardDto) {
-    const result : any = this.aadhaarCardService.create(createAadhaarCardDto);
-    return res.send({
-      msg : "Data Added successfully",
-      status:HttpStatus.OK,
-      data:result
-    })
+    const result : any = await this.aadhaarCardService.create(createAadhaarCardDto);
+    return res.send(result);
   }
 
   @Get()
   async findAll(@Req() req:Request, @Res() res: Response) {
-    const total : any = this.aadhaarCardService.findAll();
-    return res.send({
-      msg : "Single data fetch successfully",
-      status:HttpStatus.OK,
-      data:total
-    })
+    const total : any = await this.aadhaarCardService.findAll(req.query, req.body);
+    console.log(total); 
+    return res.send(total)
   }
 
   @Get('/onePersonCard')
   async findOne(@Req() req: Request, @Res() res: Response, @Query('id') id: MongooseSchema.Types.ObjectId) {
-    const onePersonCard = this.aadhaarCardService.findOne(id)
-    return res.send({
-        msg : "Single data fetch successfully",
-        status:HttpStatus.OK,
-        data:onePersonCard
-    })
+    const onePersonCard =await  this.aadhaarCardService.findOne(id)
+    return res.send(onePersonCard)
   }
 
   @Post('/updateOnePerson')
   async update(@Req() req: Request, @Res() res: Response, @Query('id') id: MongooseSchema.Types.ObjectId, @Body() updateAadhaarCardDto: CreateAadhaarCardDto) {
-    const updatedData : any= this.aadhaarCardService.update(id, updateAadhaarCardDto);
-    return res.send({
-      msg : "Data updated successfully",
-      status : HttpStatus.OK,
-      data : updatedData
-    })
+    const updatedData : any = await this.aadhaarCardService.update(id, updateAadhaarCardDto);
+    return res.send(updatedData)
   }
 
   @Post('/deleteOnePerson')
   async remove(@Req() req: Request, @Res() res: Response, @Query('id') id: MongooseSchema.Types.ObjectId) {
-    const deleteData : any =  this.aadhaarCardService.remove(id);
-    return res.send({
-      msg : "Data deleted successfully",
-      status : HttpStatus.OK,
-      data : deleteData
-    })
+    const deleteData : any =await this.aadhaarCardService.remove(id);
+    return res.send(deleteData)
   }
 }

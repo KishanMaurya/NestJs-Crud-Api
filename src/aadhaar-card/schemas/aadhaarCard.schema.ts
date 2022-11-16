@@ -53,10 +53,10 @@ export class AadhaarCard {
   profile: string;
 
   @Prop({
-    type : Number,
+    type : String,
     required : true,
   })
-  aadhaarNo : number;
+  aadhaarNo : string;
 }
 
 export const AadhaarCardSchema = SchemaFactory.createForClass(AadhaarCard);
